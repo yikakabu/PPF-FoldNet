@@ -4,6 +4,7 @@ import shutil
 from dataloader import get_dataloader
 from trainer import Trainer
 from loss.chamfer_loss import ChamferLoss
+from emd import EMDLoss
 from models.model_conv1d import PPFFoldNet
 from torch import optim
 
@@ -17,7 +18,7 @@ class Args(object):
         os.makedirs(tensorboard_root, exist_ok=True)
         shutil.copy2(os.path.join('.', 'train.py'), os.path.join(snapshot_root, 'train.py'))
         shutil.copy2(os.path.join('.', 'models/model_conv1d.py'), os.path.join(snapshot_root, 'model.py'))
-        self.epoch = 20
+        self.epoch = 100
         self.num_patches = 1
         self.num_points_per_patch = 1024  # num of points per patches
         self.batch_size = 32

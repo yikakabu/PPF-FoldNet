@@ -1,0 +1,10 @@
+first experiment:
+	own model trained on partial training set:
+	All 4 scene, average recall: 71.86917430039784%
+	All 4 scene, average num inliers: 199.43882471918158
+
+second experiment:
+	origin configration and pretrain model on four evluate dateset:
+	All 4 scene, average recall: 71.86917430039784%
+	All 4 scene, average num inliers: 199.43882471918158
+

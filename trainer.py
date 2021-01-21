@@ -83,15 +83,16 @@ class Trainer(object):
         loss_buf = []
         num_batch = int(len(self.train_loader.dataset) / self.batch_size)
         for iter, (patches, ids) in enumerate(self.train_loader):
-            patches = patches.reshape([-1, patches.shape[2], patches.shape[3]])
+            patches = patches.reshape([-1, patches.shape[2], patches.shape[3]]) # [32, 1024, 4]
+
             if self.gpu_mode:
                 patches = patches.cuda()
 
             # forward
             self.optimizer.zero_grad()
-            output = self.model(patches)
+            output = self.model(patches) # [32, 1024, 4]
             loss = self.evaluate_metric(patches, output)
-
+            #loss = torch.sum(lost)
             # backward
             loss.backward()
             self.optimizer.step()
@@ -118,7 +119,11 @@ class Trainer(object):
             if self.gpu_mode:
                 patches = patches.cuda()
             output = self.model(patches)
+            #output = output.contiguous()
+            #patches.type(torch.double)
+            #output.type(torch.double)
             loss = self.evaluate_metric(patches, output)
+            #loss = torch.sum(lost)
             loss_buf.append(float(loss))
             del loss
             del patches

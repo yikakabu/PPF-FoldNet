@@ -85,12 +85,12 @@ if __name__ == '__main__':
     scene_list = [
        '7-scenes-redkitchen',
        'sun3d-home_at-home_at_scan1_2013_jan_1',
-       'sun3d-home_md-home_md_scan9_2012_sep_30',
+     #  'sun3d-home_md-home_md_scan9_2012_sep_30',
        'sun3d-hotel_uc-scan3',
-       'sun3d-hotel_umd-maryland_hotel1',
+      # 'sun3d-hotel_umd-maryland_hotel1',
        'sun3d-hotel_umd-maryland_hotel3',
-       'sun3d-mit_76_studyroom-76-1studyroom2',
-       'sun3d-mit_lab_hj-lab_hj_tea_nov_2_2012_scan1_erika'
+      # 'sun3d-mit_76_studyroom-76-1studyroom2',
+      # 'sun3d-mit_lab_hj-lab_hj_tea_nov_2_2012_scan1_erika'
     ]
     # datapath = "./data/test/sun3d-hotel_umd-maryland_hotel3/"
     # interpath = "./data/intermediate-files-real/sun3d-hotel_umd-maryland_hotel3/"
@@ -100,17 +100,24 @@ if __name__ == '__main__':
         os.mkdir(f"ppf_desc_{model_str}")
          
     # dynamically load the model from snapshot
-    module_file_path = f'/home/xybai/PPF-FoldNet/snapshot/PPF-FoldNet{model_str}/model.py'
+    if model_str == 'pretrained':
+        module_file_path = '../models/model_conv1d.py'
+    else:
+        module_file_path = f'../snapshot/PPF-FoldNet{model_str}/model.py'
     module_name = 'models'
     module_spec = importlib.util.spec_from_file_location(module_name, module_file_path)
     module = importlib.util.module_from_spec(module_spec)
     module_spec.loader.exec_module(module)
 
     model = module.PPFFoldNet(10, 1024)
-    model.load_state_dict(torch.load(f'/home/xybai/PPF-FoldNet/snapshot/PPF-FoldNet{model_str}/models/sun3d_best.pkl'))
+
+    if model_str == "pretrained":
+        model.load_state_dict(torch.load('../pretrained/sun3d_best.pkl'))
+    else:
+        model.load_state_dict(torch.load(f'../snapshot/PPF-FoldNet{model_str}/models/sun3d_best.pkl'))
     for scene in scene_list:
-        pcdpath = f"/data/3DMatch/fragments/{scene}/"
-        interpath = f"/data/3DMatch/intermediate-files-real/{scene}/"
+        pcdpath = f"../data/3DMatch/fragments/{scene}/"
+        interpath = f"../data/3DMatch/intermediate-files-real/{scene}/"
         keyptspath = os.path.join(interpath, "keypoints/")
         ppfpath = os.path.join(interpath, "ppf/")
         ppfdescpath = os.path.join('.',f"ppf_desc_{model_str}/{scene}/")

@@ -1,6 +1,4 @@
 data/
-snapshot/*
-tensorboard/*
 *.pyc
 .DS_Store
 .idea/

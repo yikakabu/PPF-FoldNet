@@ -33,7 +33,7 @@ class SunDataset(data.Dataset):
         self.scene_list = []
         for scene in scene_list:
             ids = []
-            scene = scene.replace("\n", "")
+            scene = scene.replace("\n", "")#  \n替换成空格
             for seq in os.listdir(os.path.join(self.root, scene)):
                 if not seq.startswith('seq'):
                     continue

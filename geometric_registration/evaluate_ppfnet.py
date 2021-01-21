@@ -3,6 +3,8 @@ import open3d
 import numpy as np
 import time
 import os
+
+
 from geometric_registration.utils import get_pcd, get_keypts, get_desc, loadlog
 # from scipy.spatial import KDTree
 from sklearn.neighbors import KDTree
@@ -100,20 +102,20 @@ if __name__ == '__main__':
     scene_list = [
        '7-scenes-redkitchen',
        'sun3d-home_at-home_at_scan1_2013_jan_1',
-       'sun3d-home_md-home_md_scan9_2012_sep_30',
+       #'sun3d-home_md-home_md_scan9_2012_sep_30',
        'sun3d-hotel_uc-scan3',
-       'sun3d-hotel_umd-maryland_hotel1',
+       #'sun3d-hotel_umd-maryland_hotel1',
        'sun3d-hotel_umd-maryland_hotel3',
-       'sun3d-mit_76_studyroom-76-1studyroom2',
-       'sun3d-mit_lab_hj-lab_hj_tea_nov_2_2012_scan1_erika'
+       #'sun3d-mit_76_studyroom-76-1studyroom2',
+       #'sun3d-mit_lab_hj-lab_hj_tea_nov_2_2012_scan1_erika'
     ]
     desc_name = 'ppf'
     timestr = sys.argv[1]
     inliers_list = []
     recall_list = []
     for scene in scene_list:
-        pcdpath = f"/data/3DMatch/fragments/{scene}/"
-        interpath = f"/data/3DMatch/intermediate-files-real/{scene}/"
+        pcdpath = f"../data/3DMatch/fragments/{scene}/"
+        interpath = f"../data/3DMatch/intermediate-files-real/{scene}/"
         gtpath = f'gt_result/{scene}-evaluation/'
         keyptspath = os.path.join(interpath, "keypoints/")
         descpath = os.path.join(".", f"{desc_name}_desc_{timestr}/{scene}")
@@ -150,6 +152,6 @@ if __name__ == '__main__':
         inliers_list.append(ave_num_inliers)
     print(recall_list)
     average_recall = sum(recall_list) / len(recall_list)
-    print(f"All 8 scene, average recall: {average_recall}%")
+    print(f"All 4 scene, average recall: {average_recall}%")
     average_inliers = sum(inliers_list) / len(inliers_list)
-    print(f"All 8 scene, average num inliers: {average_inliers}")
+    print(f"All 4 scene, average num inliers: {average_inliers}")

@@ -137,5 +137,5 @@ dependencies:
     - pysnooper==0.0.11
     - seashells==0.1.2
     - torchsummary==1.5.1
-prefix: /home/xybai/anaconda3/envs/ppf-foldnet
+prefix: /home/htl/PPF-FoldNet
 
